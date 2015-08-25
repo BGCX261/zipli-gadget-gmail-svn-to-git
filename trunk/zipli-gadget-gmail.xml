@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Zip.li" description="Zipli URL from Gmail using Zip.li" author="Apiki" author_email="leandro@apiki.com" height="100" />
+  <Content type="html">
+     <![CDATA[
+        <div id="zipli-gadget-gmail">
+            <div id="zipli-gadget-gmail-zipling">
+                <form id="frm-zipliit" method="post" action="">
+                    <input type="text" id="longUrl" name="longUrl" />
+                    <input type="text" id="urlZipled" name="urlZipled" />
+                    <input type="submit" id="zipliIt" value="Zipli it!" />
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+        <script type="text/javascript">
+        jQuery(function($) {
+            var urlZipled = $('#urlZipled');
+            urlZipled.hide();
+            urlZipled.click(function() {
+                $(this).select();
+            });
+            $('#frm-zipliit').submit(function() {
+                var longUrl = $('#longUrl').val();
+                $.getJSON( 'http://zip.li/api?format=jsonp&callback=?&longUrl=' + longUrl, function(jsonReturn) {
+                    urlZipled.show().val(jsonReturn.zipledUrl).focus().select();
+                });
+                return false;
+            });
+        });
+        </script>
+     ]]>
+  </Content>
+</Module>
